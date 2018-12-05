@@ -1,5 +1,5 @@
 
-const cItem = require('../../core/produtos/cItens')
+const cItem = require('../../model/core/produtos/cItens')
 
 cItem.methods(['get', 'post', 'put', 'delete'])
 
