@@ -1,10 +1,15 @@
 // string de conexao ao bando mongo;
 var mongoose = require('mongoose')
+
 let dadosConexao = 'desenv:desenv2018'
 let dbUri = 'tatooine.mongodb.umbler.com:47856/catalogoservicos'
+mongoose.set('useNewUrlParser', true)
+mongoose.set('useFindAndModify', false)
+mongoose.set('useCreateIndex', true)
 let conecta = 'mongodb://' + dadosConexao + '@' + dbUri 
 
-module.exports = mongoose.connect(conecta),{useMongoClient: true}
+module.exports = mongoose.connect(conecta),{useMongoClient: true, useNewUrlParser: true, useCreateIndex: true,
+    useNewUrlParser: true}
 
 // Monitoramento de connection 
 mongoose.connection.on('disconnect', function(){
