@@ -1,8 +1,4 @@
 const express = require('express')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-
-
 
 module.exports = function(server){
     let router = express.Router()
