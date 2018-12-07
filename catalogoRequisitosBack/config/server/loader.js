@@ -1,6 +1,6 @@
 const server = require('./server')
 require('../dados/database')
-require('../../controller/produtosController')(server)
-require('../../controller/usuariosController')(server)
-require('../../controller/projetosController')(server)
+require('../../src/controller/produtosController')(server)
+require('../../src/controller/usuariosController')(server)
+require('../../src/controller/projetosController')(server)
 

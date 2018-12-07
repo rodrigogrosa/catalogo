@@ -1,5 +1,5 @@
 
-const cItem = require('../../core/produtos/cItens')
+const cItem = require('../../../model/core/produtos/cItens')
 
 const buscaNome = (req,res,next) => {
     const name = req.params.name

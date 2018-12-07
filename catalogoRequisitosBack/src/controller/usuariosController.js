@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
  let qUsuario = require ('../model/querys/usuario/qUsuario')
  let cUsuario = require ('../model/core/usuario/cUsuario')
- let authConfig = require('../config/auth.json')
+ let authConfig = require('../../config/auth.json')
 
  function gerarToken (param = {}){
      return jwt.sign(param,authConfig.secret, {
