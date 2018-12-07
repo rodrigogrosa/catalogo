@@ -1,10 +1,19 @@
 
-let express = require('express')
+const express = require('express')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
  let qUsuario = require ('../model/querys/usuario/qUsuario')
  let cUsuario = require ('../model/core/usuario/cUsuario')
- const bcrypt = require('bcryptjs')
+ let authConfig = require('../config/auth.json')
 
-module.exports = function(server){
+ function gerarToken (param = {}){
+     return jwt.sign(param,authConfig.secret, {
+         expiresIn: 86400
+     })
+ }
+
+ module.exports = function(server){
     const router = express.Router()
     server.use('/auth', router)
 
@@ -16,7 +25,7 @@ module.exports = function(server){
     router.post ('/autenticar', async(req,res)=>{
         const { matricula, senha } = req.body
 
-        const usuario = await cUsuario.findOne({ matricula}).select('+senha')
+        const usuario = await cUsuario.findOne({matricula}).select('+senha')
 
         if (!usuario){
             return res.status(400).send({error:'Usuario nao encontrado'})
@@ -26,8 +35,11 @@ module.exports = function(server){
             return res.status(400).send({error:'Senha Invalida'})
         }
         usuario.senha = undefined
-        
-        res.send ({usuario})
+
+        res.send ({
+            usuario, 
+            token : gerarToken({matricula: usuario.matricula})
+        })
 
     })
 
