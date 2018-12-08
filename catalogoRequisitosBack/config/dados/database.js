@@ -17,6 +17,7 @@ mongoose.connection.on('disconnect', function(){
 })
 mongoose.connection.on('connected', function(){
     console.log('Mongoose esta conectado em:' + dbUri )
+    console.log('=====> OK <=====:' )
 })
 mongoose.connection.on('error', function(err){
     console.log('Mongoose esta com a coneccao com erro:' + err )

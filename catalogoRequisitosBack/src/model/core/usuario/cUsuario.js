@@ -26,6 +26,14 @@ const usuario = new mongoose.Schema({
         require: true, 
         select: false
     },
+    resetSenhaToken:{
+        type: String,
+        select: false
+    },
+    resetSenhaExpirar:{
+        type: Date,
+        select: false
+    },
     dataRegistro: {
         type: Date,
         defaut: Date.now
