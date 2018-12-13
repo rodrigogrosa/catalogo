@@ -8,6 +8,7 @@ let qUsuario = require('../model/querys/usuario/qUsuario')
 let cUsuario = require('../model/core/usuario/cUsuario')
 let authConfig = require('../../config/json/auth.json')
 let mailer = require('../modules/mailer')
+const emailService = require ('../services/emailService')
 
 function gerarToken(param = {}) {
     return jwt.sign(param, authConfig.secret, {
@@ -40,14 +41,14 @@ module.exports = function (server) {
 
         res.send({
             usuario,
-            token: gerarToken({ matricula: usuario.matricula })
+            token: gerarToken({ matricula: usuario.matricula, usuario: usuario.id })
         })
 
     })
 
     router.post('/esquecisenha', async (req, res) => {
         const { email } = req.body
-
+        console.log(email)
         try {
             const usuario = await cUsuario.findOne({ email })
 
@@ -65,19 +66,20 @@ module.exports = function (server) {
                     resetSenhaExpirar: now,
                 }
             })
-
-            mailer.sendMail({
-                to: email,
-                from: 'rodrigo.grosa2011@gmail.com',
-                template: 'usuario/esquecisenha',
-                context: { token }
-            }, (err) => {
-                if (err)
-                    return res.status(400).send({
-                        error: 'Nao foi possivel enviar email.'
-                    })
-                return res.send();
-            })
+            
+            emailService.send(email,'Esqueci minha senha','usuario/esquecisenha',token)
+            // mailer.sendMail({
+            //     to: email,
+            //     from: 'rodrigo.grosa2011@gmail.com',
+            //     template: 'usuario/esquecisenha',
+            //     context: { token }
+            // }, (err) => {
+            //     if (err)
+            //         return res.status(400).send({
+            //             error: 'Nao foi possivel enviar email.'
+            //         })
+            //     return res.send();
+            // })
 
         } catch (err) {
             res.status(400).send({ error: 'Erro em solicitar a recuperacao de senha', err })

@@ -2,5 +2,6 @@
     "host": "smtp.mailtrap.io",
     "port": 2525,
     "user": "ef1a692fd3759a",
-    "pass": "2ab667efaa9584"
+    "pass": "2ab667efaa9584",
+    "sendGridKey":"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"
 }

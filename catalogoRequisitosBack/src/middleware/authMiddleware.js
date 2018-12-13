@@ -29,7 +29,8 @@ module.exports = (req, res, next) => {
         if (err){
             return res.status(401).send({ error: "Sua aplicacao nao possui token no padrao esperado" })
         }
-        req.matricula = decoded.matricula
+        req.matricula = decoded.matricula,
+        req.usuario = decoded.usuario
         return next()
     })
 

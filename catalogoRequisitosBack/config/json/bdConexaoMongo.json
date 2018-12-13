@@ -1,0 +1,8 @@
+{
+    "banco": "catalogoservicos",
+    "dbUri": "tatooine.mongodb.umbler.com",
+    "conecta": "mongodb://",
+    "porta": "47856",
+    "usuario": "desenv",
+    "senha":"desenv2018"
+}

@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.3.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "1.18.2",
     "cookie-parser": "1.4.3",
@@ -25,7 +26,8 @@
     "nodemailer-express-handlebars": "^3.0.0",
     "path": "^0.12.7",
     "restify": "7.2.3",
-    "restify-errors": "6.1.1"
+    "restify-errors": "6.1.1",
+    "sendgrid": "^5.2.3"
   },
   "devDependencies": {
     "nodemon": "1.18.7",

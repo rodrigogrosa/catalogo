@@ -1,14 +1,68 @@
-const port = 4000
-
 const bodyParser = require('body-parser')
 const express = require('express')
+
 const server = express()
 
-server.use(bodyParser.urlencoded({ extended:true}))
+var port = normalizePort(process.env.PORT || '4000');
+
+// Converte o conteudo do BODY do http em Json
+server.use(bodyParser.urlencoded({ extended:true }))
 server.use(bodyParser.json())
 
-server.listen(process.env.port || port, function() {
-    console.log('Lendo o servidor')
-})
+server.listen(port, function() { console.log('Lendo o servidor na porta:',port) })
+server.on('error', onError)
+server.on('listening', onListening)
 
+function normalizePort(val) {
+    var port = parseInt(val, 10)
+  
+    if (isNaN(port)) {
+      // named pipe
+      return val
+    }
+  
+    if (port >= 0) {
+      // port number
+      return port
+    }
+  
+    return false
+  }
+  
+  function onError(error) {
+    if (error.syscall !== 'listen') {
+      throw error
+    }
+  
+    var bind = typeof port === 'string'
+      ? 'Pipe ' + port
+      : 'Port ' + port
+  
+    // handle specific listen errors with friendly messages
+    switch (error.code) {
+      case 'EACCES':
+        console.error(bind + ' requires elevated privileges');
+        process.exit(1)
+        break;
+      case 'EADDRINUSE':
+        console.error(bind + ' is already in use');
+        process.exit(1)
+        break;
+      default:
+        throw error;
+    }
+  }
+  
+  /**
+   * Event listener for HTTP server "listening" event.
+   */
+  
+  function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === 'string'
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
+    debug('Listening on ' + bind);
+  }
+  
 module.exports = server
